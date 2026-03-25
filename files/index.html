@@ -13,7 +13,22 @@
 </head>
 <body>
 
-<!-- ═══════════ NAVBAR ═══════════ -->
+<!-- ═══ A11Y OVERLAY ═══ -->
+<div class="a11y-overlay" id="a11yOverlay" role="dialog" aria-label="Accesibilitate">
+  <div class="a11y-box">
+    <div class="a11y-icon-wrap"><i data-lucide="accessibility" style="width:48px;height:48px"></i></div>
+    <h1>Bine ați venit!</h1>
+    <p>Primăria Digitală Galați — Portal accesibil pentru toți cetățenii</p>
+    <div class="a11y-opts">
+      <div class="a11y-opt a11y-opt-acc" id="optA11y" tabindex="0"><div class="a11y-key">Space</div><div><strong>Mod Accesibil</strong><span>Navigare cu tastatura + ghidare vocală</span></div></div>
+      <div class="a11y-opt a11y-opt-std" id="optStd" tabindex="0"><div class="a11y-key">X</div><div><strong>Navigare Standard</strong><span>Interfața normală cu mouse</span></div></div>
+    </div>
+    <p class="a11y-hint">Schimbați oricând din butonul ♿ din colțul ecranului</p>
+  </div>
+</div>
+<a href="#app" class="skip-link">Salt la conținut</a>
+
+<!-- ═══ NAVBAR ═══ -->
 <nav class="nav" id="navbar">
   <div class="nav-inner">
     <a href="#" class="logo" data-page="home">
@@ -24,386 +39,299 @@
     <div class="nav-menu" id="navMenu">
       <a href="#" data-page="home" class="nav-link active">Acasă</a>
       <a href="#" data-page="news" class="nav-link">Știri</a>
-      <a href="#" data-page="about" class="nav-link">Despre Galați</a>
+      <a href="#" data-page="about" class="nav-link">Despre</a>
       <a href="#" data-page="contact" class="nav-link">Contact</a>
-      <a href="#" data-page="report" class="nav-link nav-link-report" id="navReport" style="display:none">
-        <i data-lucide="alert-circle" style="width:16px;height:16px"></i> Raportează
-      </a>
-      <a href="#" data-page="admin" class="nav-link nav-link-admin" id="navAdmin" style="display:none">
-        <i data-lucide="shield" style="width:16px;height:16px"></i> Admin
-      </a>
-      <a href="#" class="nav-link nav-link-auth" id="navAuth">
-        <i data-lucide="user" style="width:16px;height:16px"></i>
-        <span id="navAuthLabel">Autentificare</span>
-      </a>
+      <a href="#" data-page="report" class="nav-link nl-report" id="navReport" style="display:none"><i data-lucide="alert-circle" style="width:15px;height:15px"></i> Raportează</a>
+      <a href="#" data-page="primar" class="nav-link nl-primar" id="navPrimar" style="display:none"><i data-lucide="crown" style="width:15px;height:15px"></i> Primar</a>
+      <a href="#" data-page="dept" class="nav-link nl-dept" id="navDept" style="display:none"><i data-lucide="building-2" style="width:15px;height:15px"></i> Departament</a>
+      <a href="#" data-page="admin" class="nav-link nl-admin" id="navAdmin" style="display:none"><i data-lucide="shield" style="width:15px;height:15px"></i> Admin</a>
+      <a href="#" class="nav-link nl-auth" id="navAuth"><i data-lucide="user" style="width:15px;height:15px"></i> <span id="navAuthLabel">Autentificare</span></a>
     </div>
   </div>
 </nav>
 
 <main id="app">
 
-<!-- ═══════════ HOME ═══════════ -->
+<!-- ═══ HOME ═══ -->
 <section class="page active" id="page-home">
-
-  <!-- Hero -->
-  <div class="hero">
+  <div class="hero" style="background-image:url('https://images.unsplash.com/photo-1592906209472-a36b1f3782ef?w=1600&q=80')">
     <div class="hero-overlay"></div>
     <div class="hero-body">
-      <p class="hero-tag">Municipiul Galați — România</p>
-      <h1 class="hero-h1">Orașul de pe<br><em>malul Dunării</em></h1>
-      <p class="hero-p">Galați, al optulea oraș ca populație din România, se întinde pe malul stâng al Dunării. Un oraș cu istorie bogată, industrie puternică și o comunitate care își dorește mai mult. Acest portal vă oferă posibilitatea de a raporta probleme urbane și de a urmări rezolvarea lor.</p>
+      <p class="hero-tag">Municipiul Galați — România — Malul Dunării</p>
+      <h1 class="hero-h1">Galați<br><em>Digital</em></h1>
+      <p class="hero-p">Portal digital pentru cetățenii municipiului Galați. Raportați probleme urbane, solicitați servicii publice și urmăriți rezolvarea sesizărilor — totul transparent și accesibil.</p>
       <div class="hero-btns">
-        <button class="btn btn-gold btn-lg" data-page="report" id="heroReportBtn">
-          <i data-lucide="map-pin" style="width:20px;height:20px"></i> Raportează o problemă
-        </button>
-        <button class="btn btn-glass btn-lg" data-page="news">
-          <i data-lucide="newspaper" style="width:20px;height:20px"></i> Știri recente
-        </button>
+        <button class="btn btn-gold btn-lg" id="heroReport" data-page="report"><i data-lucide="map-pin" style="width:20px;height:20px"></i> Raportează o problemă</button>
+        <button class="btn btn-glass btn-lg" data-page="news"><i data-lucide="newspaper" style="width:20px;height:20px"></i> Știri</button>
       </div>
     </div>
   </div>
 
-  <!-- City stats strip -->
-  <div class="stats-strip">
-    <div class="container">
-      <div class="stats-row">
-        <div class="stat-item"><span class="stat-val" id="sTotal">—</span><span class="stat-lbl">Rapoarte</span></div>
-        <div class="stat-item"><span class="stat-val" id="sResolved">—</span><span class="stat-lbl">Rezolvate</span></div>
-        <div class="stat-item"><span class="stat-val" id="sProgress">—</span><span class="stat-lbl">În lucru</span></div>
-        <div class="stat-item"><span class="stat-val" id="sUrgent">—</span><span class="stat-lbl">Urgente</span></div>
-      </div>
-    </div>
-  </div>
+  <!-- Stats -->
+  <div class="stats-strip"><div class="container"><div class="stats-row">
+    <div class="si"><span class="sv" id="sTotal">—</span><span class="sl">Sesizări</span></div>
+    <div class="si"><span class="sv" id="sRes">—</span><span class="sl">Rezolvate</span></div>
+    <div class="si"><span class="sv" id="sProg">—</span><span class="sl">În lucru</span></div>
+    <div class="si"><span class="sv" id="sUrg">—</span><span class="sl">Urgente</span></div>
+  </div></div></div>
 
-  <!-- About Galati section -->
+  <!-- About City -->
   <section class="sec">
     <div class="container">
-      <div class="split split-img-right">
+      <div class="split">
         <div class="split-text">
           <span class="tag">Despre Oraș</span>
           <h2>Galați — Poartă spre Dunăre</h2>
-          <p>Situat la confluența Dunării cu Siretul și Prutul, municipiul Galați este un important centru economic și cultural al Moldovei. Cu o populație de aproximativ 250.000 de locuitori, orașul combină patrimoniul industrial cu ambiția de a deveni un oraș inteligent, verde și accesibil.</p>
-          <p>Prin acest portal digital, dorim să implicăm cetățenii în îmbunătățirea infrastructurii urbane — de la drumuri și iluminat, la salubritate și spații verzi.</p>
+          <p>Municipiul Galați, situat la confluența Dunării cu Siretul și Prutul, este un important centru economic și cultural al Moldovei. Cu ~250.000 locuitori și o istorie de peste 600 de ani, orașul se reinventează prin digitalizare și implicarea cetățenilor.</p>
+          <p>Prin acest portal, raportați probleme urbane direct pe hartă. Fiecare sesizare primește un număr de înregistrare și este redirecționată de primar către departamentul responsabil.</p>
         </div>
         <div class="split-img">
           <div class="img-card">
-            <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600" alt="Galați">
-            <div class="img-card-caption">Faleza Dunării, Galați</div>
+            <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600" alt="Faleza Dunării Galați" loading="lazy">
+            <div class="img-caption">Faleza Dunării, Galați</div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Institutional Links -->
+  <section class="sec sec-alt">
+    <div class="container">
+      <div class="sec-head"><span class="tag">Instituții</span><h2>Legături Utile</h2></div>
+      <div class="inst-grid">
+        <a href="https://www.primaria.galati.ro" target="_blank" rel="noopener" class="inst-card"><i data-lucide="landmark"></i><span>Primăria Galați</span><small>primaria.galati.ro</small></a>
+        <a href="https://www.cjgalati.ro" target="_blank" rel="noopener" class="inst-card"><i data-lucide="building"></i><span>Consiliul Județean</span><small>cjgalati.ro</small></a>
+        <a href="https://www.prefecturagalati.ro" target="_blank" rel="noopener" class="inst-card"><i data-lucide="shield"></i><span>Prefectura Galați</span><small>prefecturagalati.ro</small></a>
+        <a href="https://www.politialocala-galati.ro" target="_blank" rel="noopener" class="inst-card"><i data-lucide="badge"></i><span>Poliția Locală</span><small>politialocala-galati.ro</small></a>
+        <a href="https://www.transurb-galati.ro" target="_blank" rel="noopener" class="inst-card"><i data-lucide="bus"></i><span>Transurb</span><small>transurb-galati.ro</small></a>
+        <a href="https://www.apagalati.ro" target="_blank" rel="noopener" class="inst-card"><i data-lucide="droplets"></i><span>Apă Canal</span><small>apagalati.ro</small></a>
       </div>
     </div>
   </section>
 
   <!-- Services -->
-  <section class="sec sec-alt">
+  <section class="sec">
     <div class="container">
       <div class="sec-head"><span class="tag">Servicii</span><h2>Ce poți face pe platformă</h2></div>
       <div class="grid-4">
-        <div class="svc-card" data-page="report">
-          <div class="svc-icon svc-red"><i data-lucide="alert-triangle"></i></div>
-          <h3>Raportare Probleme</h3>
-          <p>Gropi, iluminat defect, gunoi — marchează locația pe hartă</p>
-        </div>
-        <div class="svc-card" data-page="report">
-          <div class="svc-icon svc-blue"><i data-lucide="wrench"></i></div>
-          <h3>Cereri Servicii</h3>
-          <p>Canalizare, tăieri copaci, reparații — solicită intervenția echipelor</p>
-        </div>
-        <div class="svc-card" data-page="news">
-          <div class="svc-icon svc-green"><i data-lucide="megaphone"></i></div>
-          <h3>Știri & Anunțuri</h3>
-          <p>Proiecte, evenimente, ședințe — fii la curent cu orașul tău</p>
-        </div>
-        <div class="svc-card" data-page="contact">
-          <div class="svc-icon svc-gold"><i data-lucide="mail"></i></div>
-          <h3>Contact Direct</h3>
-          <p>Scrie direct primăriei, departamentului potrivit</p>
-        </div>
+        <div class="svc-card" data-page="report"><div class="svc-icon svc-red"><i data-lucide="alert-triangle"></i></div><h3>Sesizări</h3><p>Raportează probleme urbane pe hartă</p></div>
+        <div class="svc-card" data-page="report"><div class="svc-icon svc-blue"><i data-lucide="wrench"></i></div><h3>Cereri Servicii</h3><p>Solicită intervenția echipelor</p></div>
+        <div class="svc-card" data-page="news"><div class="svc-icon svc-green"><i data-lucide="megaphone"></i></div><h3>Știri</h3><p>Proiecte, evenimente, anunțuri</p></div>
+        <div class="svc-card" data-page="contact"><div class="svc-icon svc-gold"><i data-lucide="mail"></i></div><h3>Contact</h3><p>Scrie direct primăriei</p></div>
       </div>
     </div>
   </section>
 
-  <!-- Latest News -->
-  <section class="sec">
-    <div class="container">
-      <div class="sec-head"><span class="tag">Informații</span><h2>Știri Recente</h2></div>
-      <div class="news-grid" id="homeNews"></div>
-      <div style="text-align:center;margin-top:2rem">
-        <button class="btn btn-outline-dark" data-page="news">Toate știrile →</button>
-      </div>
-    </div>
-  </section>
+  <!-- News -->
+  <section class="sec sec-alt"><div class="container"><div class="sec-head"><span class="tag">Informații</span><h2>Știri Recente</h2></div><div class="news-grid" id="homeNews"></div></div></section>
 
-  <!-- Map Preview -->
-  <section class="sec sec-alt">
-    <div class="container">
-      <div class="sec-head"><span class="tag">Harta Orașului</span><h2>Probleme Raportate în Galați</h2><p class="sec-sub">Click pe marcaje pentru detalii</p></div>
-      <div class="map-frame"><div id="homeMap" class="map"></div></div>
-    </div>
-  </section>
+  <!-- Map -->
+  <section class="sec"><div class="container"><div class="sec-head"><span class="tag">Hartă</span><h2>Sesizări în Galați</h2></div><div class="map-frame"><div id="homeMap" class="map"></div></div></div></section>
 </section>
 
-<!-- ═══════════ NEWS ═══════════ -->
+<!-- ═══ NEWS ═══ -->
 <section class="page" id="page-news">
-  <div class="page-hero"><div class="container"><span class="tag">Informații</span><h1>Știri & Anunțuri</h1><p>Noutăți din municipiul Galați</p></div></div>
+  <div class="page-hero"><div class="container"><span class="tag">Informații</span><h1>Știri & Anunțuri</h1></div></div>
   <div class="container sec"><div class="news-grid" id="allNews"></div></div>
 </section>
 
-<!-- ═══════════ ARTICLE ═══════════ -->
+<!-- ═══ ARTICLE ═══ -->
 <section class="page" id="page-article">
-  <div class="container sec" style="padding-top:6rem">
-    <button class="btn btn-ghost" data-page="news"><i data-lucide="arrow-left" style="width:18px;height:18px"></i> Înapoi</button>
-    <article class="article-card" id="articleBody"></article>
-  </div>
+  <div class="container sec" style="padding-top:6rem"><button class="btn btn-ghost" data-page="news"><i data-lucide="arrow-left" style="width:18px;height:18px"></i> Înapoi</button><article class="article-card" id="articleBody"></article></div>
 </section>
 
-<!-- ═══════════ ABOUT ═══════════ -->
+<!-- ═══ ABOUT ═══ -->
 <section class="page" id="page-about">
-  <div class="page-hero"><div class="container"><span class="tag">Despre</span><h1>Despre Galați</h1><p>Orașul, proiectul și echipa</p></div></div>
+  <div class="page-hero"><div class="container"><span class="tag">Despre</span><h1>Despre Galați</h1></div></div>
   <div class="container sec">
-    <div class="about-content">
-      <div class="card">
-        <h2>Municipiul Galați</h2>
-        <p>Galați este un municipiu situat în sud-estul României, pe malul stâng al Dunării. Este reședința județului Galați și cel mai mare oraș din regiunea Moldovei de Jos.</p>
-        <p>Cu o istorie ce se întinde pe mai bine de 600 de ani, Galați a fost un important port dunărean și centru comercial. Astăzi, orașul se reinventează prin proiecte de modernizare a infrastructurii, digitalizarea serviciilor publice și implicarea cetățenilor în guvernarea locală.</p>
-        <h3 style="margin-top:2rem">Repere ale orașului</h3>
-        <div class="facts-grid">
-          <div class="fact"><strong>Populație</strong><span>~250.000 locuitori</span></div>
-          <div class="fact"><strong>Suprafață</strong><span>246,4 km²</span></div>
-          <div class="fact"><strong>Altitudine</strong><span>25 m</span></div>
-          <div class="fact"><strong>Județul</strong><span>Galați</span></div>
-          <div class="fact"><strong>Râu</strong><span>Dunărea</span></div>
-          <div class="fact"><strong>Cod poștal</strong><span>800xxx</span></div>
-        </div>
+    <div class="about-grid">
+      <div class="card"><h2>Municipiul Galați</h2><p>Galați — al optulea oraș din România, pe malul Dunării. Reședință de județ, centru economic al Moldovei de Jos, cu o istorie de peste 600 de ani.</p>
+        <div class="facts-grid"><div class="fact"><strong>Populație</strong><span>~250.000</span></div><div class="fact"><strong>Suprafață</strong><span>246 km²</span></div><div class="fact"><strong>Altitudine</strong><span>25 m</span></div><div class="fact"><strong>Județul</strong><span>Galați</span></div><div class="fact"><strong>Râu</strong><span>Dunărea</span></div><div class="fact"><strong>Cod poștal</strong><span>800xxx</span></div></div>
       </div>
-      <div class="card">
-        <h2>Despre Proiect</h2>
-        <p>Acest portal digital a fost creat pentru a facilita comunicarea între cetățeni și administrația locală. Prin el, locuitorii Galațiului pot:</p>
-        <ul class="feature-list">
-          <li><i data-lucide="check-circle"></i> Raporta probleme urbane cu localizare precisă pe hartă</li>
-          <li><i data-lucide="check-circle"></i> Solicita servicii publice (canalizare, spații verzi, etc.)</li>
-          <li><i data-lucide="check-circle"></i> Urmări statusul rapoartelor în timp real</li>
-          <li><i data-lucide="check-circle"></i> Consulta știrile și anunțurile primăriei</li>
-        </ul>
-        <h3 style="margin-top:1.5rem">Echipa</h3>
-        <div class="team-row">
-          <div class="avatar">C</div>
-          <div><strong>Cristi</strong><br><span class="muted">Developer & Project Lead</span></div>
-        </div>
-        <div class="tech-tags">
-          <span>Node.js</span><span>Express</span><span>SQLite</span><span>Leaflet.js</span><span>Vanilla JS</span><span>HTML/CSS</span>
-        </div>
+      <div class="card"><h2>Despre Proiect</h2><p>Portal digital pentru raportarea problemelor urbane cu management ierarhic: Primar → Departamente.</p>
+        <h3 style="margin-top:1rem">Flux sesizare</h3>
+        <ol class="flow-list"><li>Cetățeanul raportează problema pe hartă</li><li>Se generează automat o cerere cu număr unic</li><li>Primarul vizualizează și redirecționează către departament</li><li>Departamentul rezolvă și actualizează statusul</li></ol>
+        <div class="team-row"><div class="avatar">C</div><div><strong>Cristi</strong><br><span class="muted">Developer & Project Lead</span></div></div>
+        <div class="tech-tags"><span>Node.js</span><span>Express</span><span>SQLite</span><span>Leaflet.js</span><span>llama.cpp</span><span>Web Speech API</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════ CONTACT ═══════════ -->
+<!-- ═══ CONTACT ═══ -->
 <section class="page" id="page-contact">
-  <div class="page-hero"><div class="container"><span class="tag">Contact</span><h1>Contactați-ne</h1><p>Primăria Municipiului Galați</p></div></div>
+  <div class="page-hero"><div class="container"><span class="tag">Contact</span><h1>Contactați-ne</h1></div></div>
   <div class="container sec">
     <div class="contact-grid">
-      <div class="card">
-        <h3>Trimiteți un mesaj</h3>
-        <div class="form-stack">
-          <div class="form-2col"><div class="field"><label>Nume *</label><input type="text" id="cName" placeholder="Numele dvs."></div><div class="field"><label>Email *</label><input type="email" id="cEmail" placeholder="email@exemplu.ro"></div></div>
-          <div class="field"><label>Subiect</label><input type="text" id="cSubject" placeholder="Subiectul mesajului"></div>
-          <div class="field"><label>Mesaj *</label><textarea id="cMessage" rows="5" placeholder="Mesajul dvs..."></textarea></div>
-          <button class="btn btn-gold btn-full" id="btnContact"><i data-lucide="send" style="width:18px;height:18px"></i> Trimite</button>
-          <div id="contactMsg" class="msg"></div>
-        </div>
-      </div>
-      <div class="card">
-        <h3>Informații</h3>
-        <div class="info-list">
-          <div class="info-item"><i data-lucide="map-pin"></i><div><strong>Adresă</strong><p>Str. Domnească nr. 38, Galați 800008</p></div></div>
-          <div class="info-item"><i data-lucide="phone"></i><div><strong>Telefon</strong><p>0236 307 700</p></div></div>
-          <div class="info-item"><i data-lucide="mail"></i><div><strong>Email</strong><p>registratura@primaria.galati.ro</p></div></div>
-          <div class="info-item"><i data-lucide="clock"></i><div><strong>Program</strong><p>Luni–Vineri: 08:00–16:00</p></div></div>
-        </div>
-      </div>
+      <div class="card"><h3>Mesaj</h3><div class="form-stack">
+        <div class="form-2col"><div class="field"><label>Nume *</label><input type="text" id="cName"></div><div class="field"><label>Email *</label><input type="email" id="cEmail"></div></div>
+        <div class="field"><label>Subiect</label><input type="text" id="cSubject"></div>
+        <div class="field"><label>Mesaj *</label><textarea id="cMessage" rows="4"></textarea></div>
+        <button class="btn btn-gold btn-full" id="btnContact"><i data-lucide="send" style="width:18px;height:18px"></i> Trimite</button>
+        <div id="contactMsg" class="msg"></div>
+      </div></div>
+      <div class="card"><h3>Informații</h3><div class="info-list">
+        <div class="info-i"><i data-lucide="map-pin"></i><div><strong>Adresă</strong><p>Str. Domnească nr. 38, Galați 800008</p></div></div>
+        <div class="info-i"><i data-lucide="phone"></i><div><strong>Telefon</strong><p>0236 307 700</p></div></div>
+        <div class="info-i"><i data-lucide="mail"></i><div><strong>Email</strong><p>registratura@primaria.galati.ro</p></div></div>
+        <div class="info-i"><i data-lucide="clock"></i><div><strong>Program</strong><p>Luni–Vineri: 08:00–16:00</p></div></div>
+      </div></div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════ LOGIN ═══════════ -->
+<!-- ═══ LOGIN ═══ -->
 <section class="page" id="page-login">
   <div class="login-wrap">
-    <div class="login-left">
-      <div class="login-left-content">
-        <div class="logo-mark" style="margin-bottom:1.5rem"><i data-lucide="landmark"></i></div>
-        <h1>Bine ai venit!</h1>
-        <p>Conectează-te pentru a raporta probleme din Galați sau pentru a solicita servicii publice.</p>
-        <div class="login-features">
-          <div><i data-lucide="map-pin"></i> Raportare pe hartă</div>
-          <div><i data-lucide="camera"></i> Atașare fotografii</div>
-          <div><i data-lucide="bell"></i> Urmărire status</div>
-        </div>
-      </div>
-    </div>
-    <div class="login-right">
-      <div class="login-form-area">
-        <!-- Login Tab -->
-        <div class="login-tabs">
-          <button class="ltab active" data-ltab="signin">Conectare</button>
-          <button class="ltab" data-ltab="signup">Cont nou</button>
-        </div>
-
-        <div class="ltab-panel active" id="ltab-signin">
-          <div class="form-stack">
-            <div class="field"><label>Utilizator sau email</label><input type="text" id="liUser" placeholder="ex: maria.popescu"></div>
-            <div class="field"><label>Parolă</label><input type="password" id="liPass" placeholder="••••••••"></div>
-            <button class="btn btn-gold btn-full" id="btnLogin"><i data-lucide="log-in" style="width:18px;height:18px"></i> Conectare</button>
-            <div id="loginMsg" class="msg"></div>
-          </div>
-        </div>
-
-        <div class="ltab-panel" id="ltab-signup">
-          <div class="form-stack">
-            <div class="field"><label>Utilizator</label><input type="text" id="ruUser" placeholder="Alege un nume"></div>
-            <div class="field"><label>Email</label><input type="email" id="ruEmail" placeholder="email@exemplu.ro"></div>
-            <div class="field"><label>Parolă</label><input type="password" id="ruPass" placeholder="Minim 4 caractere"></div>
-            <button class="btn btn-gold btn-full" id="btnRegister"><i data-lucide="user-plus" style="width:18px;height:18px"></i> Creează cont</button>
-            <div id="regMsg" class="msg"></div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div class="login-left"><div class="login-left-body">
+      <div class="logo-mark" style="margin-bottom:1.5rem"><i data-lucide="landmark"></i></div>
+      <h1>Bine ați venit!</h1>
+      <p>Conectați-vă pentru a raporta probleme sau pentru a gestiona sesizările.</p>
+      <div class="login-feats"><div><i data-lucide="map-pin"></i> Raportare pe hartă</div><div><i data-lucide="file-text"></i> Nr. cerere automat</div><div><i data-lucide="bell"></i> Urmărire status</div></div>
+    </div></div>
+    <div class="login-right"><div class="login-form-area">
+      <div class="login-tabs"><button class="ltab active" data-lt="signin">Conectare</button><button class="ltab" data-lt="signup">Cont nou</button></div>
+      <div class="lt-panel active" id="lt-signin"><div class="form-stack">
+        <div class="field"><label>Utilizator</label><input type="text" id="liUser" placeholder="ex: maria.popescu"></div>
+        <div class="field"><label>Parolă</label><input type="password" id="liPass" placeholder="••••••••"></div>
+        <button class="btn btn-gold btn-full" id="btnLogin"><i data-lucide="log-in" style="width:18px;height:18px"></i> Conectare</button>
+        <div id="loginMsg" class="msg"></div>
+      </div></div>
+      <div class="lt-panel" id="lt-signup"><div class="form-stack">
+        <div class="field"><label>Nume complet</label><input type="text" id="ruName" placeholder="Ion Popescu"></div>
+        <div class="field"><label>Utilizator</label><input type="text" id="ruUser"></div>
+        <div class="field"><label>Email</label><input type="email" id="ruEmail"></div>
+        <div class="field"><label>Parolă</label><input type="password" id="ruPass" placeholder="Min 4 caractere"></div>
+        <button class="btn btn-gold btn-full" id="btnReg"><i data-lucide="user-plus" style="width:18px;height:18px"></i> Creează cont</button>
+        <div id="regMsg" class="msg"></div>
+      </div></div>
+    </div></div>
   </div>
 </section>
 
-<!-- ═══════════ REPORT ═══════════ -->
+<!-- ═══ REPORT (Citizen) ═══ -->
 <section class="page" id="page-report">
-  <div class="page-hero"><div class="container"><span class="tag">Raportare</span><h1>Raportează o problemă</h1><p>Selectați locația pe hartă, descrieți problema și trimiteți raportul</p></div></div>
+  <div class="page-hero"><div class="container"><span class="tag">Raportare</span><h1>Raportează o problemă</h1><p>Selectați locația pe hartă, descrieți problema. Primiți automat un număr de cerere.</p></div></div>
   <div class="container sec">
     <div class="report-grid">
       <div>
-        <div class="card">
-          <div class="card-head"><i data-lucide="map" style="width:20px;height:20px"></i> Harta Galațiului</div>
-          <div id="reportMap" class="map map-lg"></div>
-          <div class="map-tip"><i data-lucide="mouse-pointer-click" style="width:16px;height:16px"></i> Click pe hartă pentru a marca locația problemei</div>
-        </div>
-        <div class="card" style="margin-top:1.25rem">
-          <div class="card-head"><i data-lucide="list" style="width:20px;height:20px"></i> Rapoartele mele</div>
-          <div class="scroll-list" id="myReports"></div>
-        </div>
+        <div class="card"><div class="card-head"><i data-lucide="map" style="width:20px;height:20px"></i> Harta Galațiului</div><div id="reportMap" class="map map-lg"></div><div class="map-tip"><i data-lucide="mouse-pointer-click" style="width:16px;height:16px"></i> Click pe hartă pentru a marca locația</div></div>
+        <div class="card" style="margin-top:1rem"><div class="card-head"><i data-lucide="list" style="width:20px;height:20px"></i> Sesizările mele</div><div class="scroll-list" id="myReports"></div></div>
       </div>
-      <div>
-        <div class="card">
-          <div class="card-head"><i data-lucide="file-text" style="width:20px;height:20px"></i> Detalii raport</div>
-          <div class="form-stack">
-            <div class="form-2col">
-              <div class="field"><label>Tip raport *</label><select id="rType"><option value="problema">🚨 Problemă urbană</option><option value="serviciu">🔧 Cerere serviciu</option></select></div>
-              <div class="field"><label>Prioritate</label><select id="rPriority"><option value="normal">Normal</option><option value="urgent">🔴 Urgent</option></select></div>
-            </div>
-            <div class="field"><label>Titlu *</label><input type="text" id="rTitle" placeholder="Ex: Groapă pe Str. Brăilei"></div>
-            <div class="field"><label>Categorie *</label><select id="rCategory">
-              <option value="">— Selectați —</option>
-              <option value="drum">🛣️ Drum / Carosabil</option>
-              <option value="iluminat">💡 Iluminat Public</option>
-              <option value="salubritate">🗑️ Salubritate</option>
-              <option value="spatii_verzi">🌳 Spații Verzi</option>
-              <option value="mobilier_urban">🪑 Mobilier Urban</option>
-              <option value="canalizare">🔧 Canalizare / Apă</option>
-              <option value="constructii">🏗️ Construcții</option>
-              <option value="altele">📋 Altele</option>
-            </select></div>
-            <div class="field"><label>Descriere *</label><textarea id="rDesc" rows="4" placeholder="Descrieți problema cât mai detaliat..."></textarea></div>
-            <div class="field"><label>Adresă</label><input type="text" id="rAddress" placeholder="Se completează automat de pe hartă" readonly></div>
-            <input type="hidden" id="rLat"><input type="hidden" id="rLng">
-            <div class="field">
-              <label>Fotografie (opțional)</label>
-              <div class="upload-zone" id="uploadZone">
-                <i data-lucide="image-plus" style="width:32px;height:32px"></i>
-                <span>Click sau trage o fotografie</span>
-                <input type="file" id="rPhoto" accept="image/*" hidden>
-              </div>
-              <img id="rPreview" class="preview-img" style="display:none">
-            </div>
-            <button class="btn btn-gold btn-full btn-lg" id="btnSubmitReport"><i data-lucide="send" style="width:18px;height:18px"></i> Trimite raportul</button>
-            <div id="reportMsg" class="msg"></div>
-          </div>
+      <div><div class="card"><div class="card-head"><i data-lucide="file-text" style="width:20px;height:20px"></i> Detalii sesizare</div>
+        <div class="form-stack">
+          <div class="form-2col"><div class="field"><label>Tip *</label><select id="rType"><option value="sesizare">🚨 Sesizare</option><option value="serviciu">🔧 Cerere serviciu</option></select></div><div class="field"><label>Prioritate</label><select id="rPri"><option value="normal">Normal</option><option value="urgent">🔴 Urgent</option></select></div></div>
+          <div class="field"><label>Titlu *</label><input type="text" id="rTitle" placeholder="Ex: Groapă pe Str. Brăilei"></div>
+          <div class="field"><label>Categorie *</label><select id="rCat"><option value="">— Selectați —</option><option value="drum">🛣️ Drum</option><option value="iluminat">💡 Iluminat</option><option value="salubritate">🗑️ Salubritate</option><option value="spatii_verzi">🌳 Spații Verzi</option><option value="mobilier_urban">🪑 Mobilier Urban</option><option value="canalizare">🔧 Canalizare</option><option value="constructii">🏗️ Construcții</option><option value="altele">📋 Altele</option></select></div>
+          <div class="field"><label>Descriere *</label><textarea id="rDesc" rows="4" placeholder="Detalii..."></textarea></div>
+          <div class="field"><label>Adresă</label><input type="text" id="rAddr" placeholder="Auto de pe hartă" readonly></div>
+          <input type="hidden" id="rLat"><input type="hidden" id="rLng">
+          <div class="field"><label>Fotografie</label><div class="upload-zone" id="uploadZone"><i data-lucide="image-plus" style="width:28px;height:28px"></i><span>Click sau trage foto</span><input type="file" id="rPhoto" accept="image/*" hidden></div><img id="rPreview" class="preview-img" style="display:none"></div>
+          <button class="btn btn-gold btn-full btn-lg" id="btnSubmitR"><i data-lucide="send" style="width:18px;height:18px"></i> Trimite sesizarea</button>
+          <div id="reportMsg" class="msg"></div>
         </div>
-      </div>
+      </div></div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════ ADMIN ═══════════ -->
-<section class="page" id="page-admin">
-  <div class="page-hero page-hero-dark"><div class="container"><span class="tag">Administrare</span><h1>Panou Administrativ</h1><p>Gestionarea rapoartelor, știrilor și mesajelor</p></div></div>
+<!-- ═══ PRIMAR DASHBOARD ═══ -->
+<section class="page" id="page-primar">
+  <div class="page-hero page-hero-dark"><div class="container"><span class="tag">Primar</span><h1>Biroul Primarului</h1><p>Vizualizare sesizări și redirecționare către departamente</p></div></div>
   <div class="container sec">
-    <!-- Stats -->
-    <div class="admin-stats">
-      <div class="astat astat-blue"><i data-lucide="inbox"></i><div><span class="astat-n" id="asTotal">0</span><span class="astat-l">Total</span></div></div>
-      <div class="astat astat-amber"><i data-lucide="clock"></i><div><span class="astat-n" id="asNew">0</span><span class="astat-l">Noi</span></div></div>
-      <div class="astat astat-orange"><i data-lucide="wrench"></i><div><span class="astat-n" id="asProg">0</span><span class="astat-l">În lucru</span></div></div>
-      <div class="astat astat-green"><i data-lucide="check-circle-2"></i><div><span class="astat-n" id="asDone">0</span><span class="astat-l">Rezolvate</span></div></div>
-      <div class="astat astat-red"><i data-lucide="siren"></i><div><span class="astat-n" id="asUrg">0</span><span class="astat-l">Urgente</span></div></div>
+    <div class="admin-stats" id="primarStats">
+      <div class="astat astat-blue"><i data-lucide="inbox"></i><div><span class="astat-n" id="psTotal">0</span><span class="astat-l">Total</span></div></div>
+      <div class="astat astat-amber"><i data-lucide="alert-circle"></i><div><span class="astat-n" id="psUnassigned">0</span><span class="astat-l">Neasignate</span></div></div>
+      <div class="astat astat-orange"><i data-lucide="wrench"></i><div><span class="astat-n" id="psProg">0</span><span class="astat-l">În lucru</span></div></div>
+      <div class="astat astat-green"><i data-lucide="check-circle-2"></i><div><span class="astat-n" id="psDone">0</span><span class="astat-l">Rezolvate</span></div></div>
+      <div class="astat astat-red"><i data-lucide="siren"></i><div><span class="astat-n" id="psUrg">0</span><span class="astat-l">Urgente</span></div></div>
     </div>
-
-    <!-- Tabs -->
-    <div class="tabs">
-      <button class="tab active" data-tab="a-reports">Rapoarte</button>
-      <button class="tab" data-tab="a-news">Știri</button>
-      <button class="tab" data-tab="a-msgs">Mesaje</button>
-    </div>
-
-    <!-- Reports Panel -->
-    <div class="tab-panel active" id="a-reports">
+    <div class="tabs"><button class="tab active" data-tab="p-reports">Sesizări</button><button class="tab" data-tab="p-news">Știri</button><button class="tab" data-tab="p-msgs">Mesaje</button></div>
+    <div class="tab-panel active" id="p-reports">
       <div class="admin-bar">
-        <select id="afStatus"><option value="">Toate statusurile</option><option value="nou">Noi</option><option value="in_lucru">În lucru</option><option value="rezolvat">Rezolvate</option></select>
-        <select id="afCategory"><option value="">Toate categoriile</option><option value="drum">Drum</option><option value="iluminat">Iluminat</option><option value="salubritate">Salubritate</option><option value="spatii_verzi">Spații verzi</option><option value="mobilier_urban">Mobilier</option><option value="canalizare">Canalizare</option></select>
+        <select id="pfStatus"><option value="">Toate</option><option value="nou">Noi</option><option value="redirecționat">Redirecționate</option><option value="in_lucru">În lucru</option><option value="rezolvat">Rezolvate</option></select>
+        <select id="pfCat"><option value="">Toate categoriile</option><option value="drum">Drum</option><option value="iluminat">Iluminat</option><option value="salubritate">Salubritate</option><option value="spatii_verzi">Spații verzi</option><option value="canalizare">Canalizare</option><option value="mobilier_urban">Mobilier</option></select>
       </div>
-      <div class="table-wrap"><table class="tbl"><thead><tr><th>ID</th><th>Titlu</th><th>Tip</th><th>Categorie</th><th>Prioritate</th><th>Status</th><th>Autor</th><th>Data</th></tr></thead><tbody id="aReportsBody"></tbody></table></div>
+      <div class="table-wrap"><table class="tbl"><thead><tr><th>Nr. Cerere</th><th>Titlu</th><th>Tip</th><th>Categorie</th><th>Prior.</th><th>Status</th><th>Departament</th><th>Data</th></tr></thead><tbody id="pReportsBody"></tbody></table></div>
     </div>
-
-    <!-- News Panel -->
-    <div class="tab-panel" id="a-news">
-      <div class="card" style="margin-bottom:1.5rem">
-        <h3>Publică știre nouă</h3>
-        <div class="form-stack" style="margin-top:1rem">
-          <div class="field"><label>Titlu *</label><input type="text" id="nTitle"></div>
-          <div class="field"><label>Rezumat</label><input type="text" id="nSummary"></div>
-          <div class="field"><label>Conținut *</label><textarea id="nContent" rows="5"></textarea></div>
-          <div class="form-2col">
-            <div class="field"><label>Categorie</label><select id="nCat"><option value="general">General</option><option value="proiecte">Proiecte</option><option value="administrativ">Administrativ</option><option value="mediu">Mediu</option><option value="cultura">Cultură</option></select></div>
-            <div class="field"><label>URL Imagine</label><input type="text" id="nImg" placeholder="https://..."></div>
-          </div>
-          <button class="btn btn-gold" id="btnAddNews"><i data-lucide="plus" style="width:18px;height:18px"></i> Publică</button>
-        </div>
-      </div>
-      <div id="aNewsList"></div>
+    <div class="tab-panel" id="p-news">
+      <div class="card" style="margin-bottom:1.25rem"><h3>Publică știre</h3><div class="form-stack" style="margin-top:.75rem">
+        <div class="field"><label>Titlu *</label><input type="text" id="nTitle"></div>
+        <div class="field"><label>Rezumat</label><input type="text" id="nSummary"></div>
+        <div class="field"><label>Conținut *</label><textarea id="nContent" rows="4"></textarea></div>
+        <div class="form-2col"><div class="field"><label>Categorie</label><select id="nCat"><option value="general">General</option><option value="proiecte">Proiecte</option><option value="administrativ">Administrativ</option><option value="mediu">Mediu</option><option value="cultura">Cultură</option></select></div><div class="field"><label>URL Imagine</label><input type="text" id="nImg"></div></div>
+        <button class="btn btn-gold" id="btnAddNews"><i data-lucide="plus" style="width:18px;height:18px"></i> Publică</button>
+      </div></div>
+      <div id="pNewsList"></div>
     </div>
+    <div class="tab-panel" id="p-msgs"><div id="pMsgsList"></div></div>
+  </div>
+</section>
 
-    <!-- Messages Panel -->
-    <div class="tab-panel" id="a-msgs"><div id="aMsgsList"></div></div>
+<!-- ═══ DEPARTMENT VIEW ═══ -->
+<section class="page" id="page-dept">
+  <div class="page-hero" style="background:linear-gradient(160deg,#0d2137,#1a3a56)"><div class="container"><span class="tag" id="deptTag">Departament</span><h1 id="deptTitle">Departament</h1><p>Sesizări asignate departamentului dvs.</p></div></div>
+  <div class="container sec">
+    <div class="admin-stats" id="deptStats">
+      <div class="astat astat-blue"><i data-lucide="inbox"></i><div><span class="astat-n" id="dsTotal">0</span><span class="astat-l">Asignate</span></div></div>
+      <div class="astat astat-orange"><i data-lucide="wrench"></i><div><span class="astat-n" id="dsProg">0</span><span class="astat-l">În lucru</span></div></div>
+      <div class="astat astat-green"><i data-lucide="check-circle-2"></i><div><span class="astat-n" id="dsDone">0</span><span class="astat-l">Rezolvate</span></div></div>
+      <div class="astat astat-red"><i data-lucide="siren"></i><div><span class="astat-n" id="dsUrg">0</span><span class="astat-l">Urgente</span></div></div>
+    </div>
+    <div class="table-wrap"><table class="tbl"><thead><tr><th>Nr.</th><th>Titlu</th><th>Prior.</th><th>Status</th><th>Adresă</th><th>Data</th></tr></thead><tbody id="dReportsBody"></tbody></table></div>
+  </div>
+</section>
+
+<!-- ═══ ADMIN ═══ -->
+<section class="page" id="page-admin">
+  <div class="page-hero page-hero-dark"><div class="container"><span class="tag">Admin</span><h1>Administrare Sistem</h1><p>Departamente, utilizatori, configurare</p></div></div>
+  <div class="container sec">
+    <div class="tabs"><button class="tab active" data-tab="a-depts">Departamente</button><button class="tab" data-tab="a-users">Utilizatori</button></div>
+    <div class="tab-panel active" id="a-depts">
+      <div class="card" style="margin-bottom:1.25rem"><h3>Adaugă departament</h3><div class="form-stack" style="margin-top:.75rem">
+        <div class="form-2col"><div class="field"><label>Nume *</label><input type="text" id="adName" placeholder="Direcția..."></div><div class="field"><label>Descriere</label><input type="text" id="adDesc"></div></div>
+        <button class="btn btn-gold" id="btnAddDept"><i data-lucide="plus" style="width:18px;height:18px"></i> Adaugă</button>
+      </div></div>
+      <div id="aDeptsList"></div>
+    </div>
+    <div class="tab-panel" id="a-users">
+      <div class="card" style="margin-bottom:1.25rem"><h3>Adaugă utilizator</h3><div class="form-stack" style="margin-top:.75rem">
+        <div class="form-2col"><div class="field"><label>Utilizator *</label><input type="text" id="auUser"></div><div class="field"><label>Email *</label><input type="email" id="auEmail"></div></div>
+        <div class="form-2col"><div class="field"><label>Parolă *</label><input type="password" id="auPass"></div><div class="field"><label>Nume complet</label><input type="text" id="auName"></div></div>
+        <div class="form-2col"><div class="field"><label>Rol</label><select id="auRole"><option value="cetatean">Cetățean</option><option value="departament">Departament</option><option value="primar">Primar</option><option value="admin">Admin</option></select></div><div class="field"><label>Departament</label><select id="auDept"><option value="">— Niciunul —</option></select></div></div>
+        <button class="btn btn-gold" id="btnAddUser"><i data-lucide="plus" style="width:18px;height:18px"></i> Adaugă</button>
+      </div></div>
+      <div id="aUsersList"></div>
+    </div>
   </div>
 </section>
 
 </main>
 
-<!-- ═══════════ REPORT DETAIL MODAL ═══════════ -->
-<div class="overlay" id="detailOverlay">
-  <div class="modal-box">
-    <button class="modal-x" id="detailClose">&times;</button>
-    <div id="detailBody"></div>
+<!-- ═══ DETAIL MODAL ═══ -->
+<div class="overlay" id="detailOverlay"><div class="modal-box"><button class="modal-x" id="detailClose">&times;</button><div id="detailBody"></div></div></div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer"><div class="container footer-row"><div class="footer-brand"><div class="logo-mark logo-mark-sm"><i data-lucide="landmark"></i></div> Primăria Galați</div><p>© 2026 Portal Digital Galați</p><div class="footer-links"><a href="#" data-page="about">Despre</a><a href="#" data-page="contact">Contact</a></div></div></footer>
+
+<!-- A11Y Toggle -->
+<button class="a11y-toggle" id="a11yToggle" title="Mod accesibil">♿</button>
+
+<!-- Voice indicator -->
+<div class="voice-ind" id="voiceInd"><div class="voice-dot"></div> Asistent vocal</div>
+
+<!-- Chat Widget -->
+<div class="chat-widget">
+  <button class="chat-fab" id="chatFab" aria-label="Asistent AI"><i data-lucide="message-circle" style="width:26px;height:26px"></i></button>
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-hdr"><div class="chat-hdr-info"><div class="chat-av">🤖</div><div><strong>Asistent AI</strong><span>Primăria Galați</span></div></div><button class="chat-x" id="chatClose">&times;</button></div>
+    <div class="chat-msgs" id="chatMsgs" role="log"><div class="chat-msg chat-bot"><div class="chat-bbl">Bună ziua! Sunt asistentul Primăriei Galați. Cu ce vă pot ajuta?</div></div></div>
+    <div class="chat-inp"><input type="text" id="chatInput" placeholder="Scrieți un mesaj..." aria-label="Mesaj"><button class="chat-snd" id="chatSend"><i data-lucide="send" style="width:18px;height:18px"></i></button></div>
   </div>
 </div>
 
-<!-- ═══════════ FOOTER ═══════════ -->
-<footer class="footer">
-  <div class="container footer-row">
-    <div class="footer-brand"><div class="logo-mark logo-mark-sm"><i data-lucide="landmark"></i></div> Primăria Galați</div>
-    <p>© 2026 Primăria Digitală Galați — Proiect pentru concurs</p>
-    <div class="footer-links"><a href="#" data-page="about">Despre</a><a href="#" data-page="contact">Contact</a></div>
-  </div>
-</footer>
-
-<!-- Toast -->
 <div id="toasts" class="toasts"></div>
-
 <script src="/js/app.js"></script>
 </body>
 </html>
