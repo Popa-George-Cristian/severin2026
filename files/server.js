@@ -170,13 +170,14 @@ if (!db.prepare('SELECT COUNT(*) as c FROM news').get().c) {
 
 if (!db.prepare('SELECT COUNT(*) as c FROM reports').get().c) {
   const uid = db.prepare("SELECT id FROM users WHERE username='maria.popescu'").get()?.id || 1;
-  const r = db.prepare('INSERT INTO reports (user_id,type,title,description,category,latitude,longitude,address,status,priority,cerere_nr,cerere_date) VALUES (?,?,?,?,?,?,?,?,?,?,?,datetime("now"))');
-  r.run(uid, 'sesizare', 'Groapă adâncă pe Str. Brăilei', 'Groapă de ~40cm pe carosabil, zona stației Micro 17. Pericol pentru mașini și bicicliști.', 'drum', 45.4386, 28.0503, 'Str. Brăilei, Micro 17', 'in_lucru', 'urgent', '0001/2026');
-  r.run(uid, 'sesizare', 'Iluminat defect pe Faleza Dunării', 'Trei stâlpi consecutivi nu funcționează pe zona centrală. Periculos seara.', 'iluminat', 45.4352, 28.0418, 'Faleza Dunării, zona centrală', 'nou', 'normal', '0002/2026');
-  r.run(uid, 'sesizare', 'Deșeuri ilegale — Lacul Brateș', 'Deșeuri de construcții pe malul sudic al lacului. Afectează ecosistemul.', 'salubritate', 45.4150, 28.0200, 'Malul sudic Lacul Brateș', 'nou', 'urgent', '0003/2026');
-  r.run(uid, 'sesizare', 'Băncile rupte din Grădina Publică', 'Două bănci rupte pe aleea centrală, cuie ieșite — pericol copii.', 'mobilier_urban', 45.4370, 28.0470, 'Grădina Publică', 'rezolvat', 'normal', '0004/2026');
-  r.run(uid, 'serviciu', 'Canalizare înfundată Str. Traian', 'Canalizarea de 3 zile e înfundată. Apa se revarsă pe stradă.', 'canalizare', 45.4330, 28.0440, 'Str. Traian nr. 22', 'in_lucru', 'urgent', '0005/2026');
-  r.run(uid, 'serviciu', 'Copac periculos Str. Eroilor', 'Crengă ruptă parțial atârnă peste trotuar, risc de cădere.', 'spatii_verzi', 45.4360, 28.0500, 'Str. Eroilor nr. 15', 'nou', 'normal', '0006/2026');
+  const now = new Date().toISOString();
+  const r = db.prepare('INSERT INTO reports (user_id,type,title,description,category,latitude,longitude,address,status,priority,cerere_nr,cerere_date) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)');
+  r.run(uid, 'sesizare', 'Groapă adâncă pe Str. Brăilei', 'Groapă de ~40cm pe carosabil, zona stației Micro 17. Pericol pentru mașini și bicicliști.', 'drum', 45.4386, 28.0503, 'Str. Brăilei, Micro 17', 'in_lucru', 'urgent', '0001/2026', now);
+  r.run(uid, 'sesizare', 'Iluminat defect pe Faleza Dunării', 'Trei stâlpi consecutivi nu funcționează pe zona centrală. Periculos seara.', 'iluminat', 45.4352, 28.0418, 'Faleza Dunării, zona centrală', 'nou', 'normal', '0002/2026', now);
+  r.run(uid, 'sesizare', 'Deșeuri ilegale — Lacul Brateș', 'Deșeuri de construcții pe malul sudic al lacului. Afectează ecosistemul.', 'salubritate', 45.4150, 28.0200, 'Malul sudic Lacul Brateș', 'nou', 'urgent', '0003/2026', now);
+  r.run(uid, 'sesizare', 'Băncile rupte din Grădina Publică', 'Două bănci rupte pe aleea centrală, cuie ieșite — pericol copii.', 'mobilier_urban', 45.4370, 28.0470, 'Grădina Publică', 'rezolvat', 'normal', '0004/2026', now);
+  r.run(uid, 'serviciu', 'Canalizare înfundată Str. Traian', 'Canalizarea de 3 zile e înfundată. Apa se revarsă pe stradă.', 'canalizare', 45.4330, 28.0440, 'Str. Traian nr. 22', 'in_lucru', 'urgent', '0005/2026', now);
+  r.run(uid, 'serviciu', 'Copac periculos Str. Eroilor', 'Crengă ruptă parțial atârnă peste trotuar, risc de cădere.', 'spatii_verzi', 45.4360, 28.0500, 'Str. Eroilor nr. 15', 'nou', 'normal', '0006/2026', now);
   // Assign some to departments
   db.prepare("UPDATE reports SET department_id=1, status='in_lucru' WHERE category='drum'").run();
   db.prepare("UPDATE reports SET department_id=5, status='in_lucru' WHERE category='canalizare'").run();
@@ -300,8 +301,9 @@ app.post('/api/reports', needAuth, upload.single('photo'), (req, res) => {
   if (!title || !description || !category) return res.status(400).json({ error: 'Câmpuri obligatorii' });
   const photo = req.file ? '/img/' + req.file.filename : null;
   const cerereNr = generateCerereNr();
-  const r = db.prepare('INSERT INTO reports (user_id,type,title,description,category,latitude,longitude,address,photo_path,priority,cerere_nr,cerere_date) VALUES (?,?,?,?,?,?,?,?,?,?,?,datetime("now"))')
-    .run(req.user.id, type || 'sesizare', title, description, category, latitude || null, longitude || null, address || null, photo, priority || 'normal', cerereNr);
+  const cerereDate = new Date().toISOString();
+  const r = db.prepare('INSERT INTO reports (user_id,type,title,description,category,latitude,longitude,address,photo_path,priority,cerere_nr,cerere_date) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)')
+    .run(req.user.id, type || 'sesizare', title, description, category, latitude || null, longitude || null, address || null, photo, priority || 'normal', cerereNr, cerereDate);
   res.status(201).json({ id: r.lastInsertRowid, cerere_nr: cerereNr });
 });
 
