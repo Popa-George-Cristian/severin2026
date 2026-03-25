@@ -1,7 +1,7 @@
 {
-  "name": "primaria-digitala",
-  "version": "1.0.0",
-  "description": "Portal digital pentru primărie — raportare probleme, știri, servicii",
+  "name": "primaria-galati-digital",
+  "version": "2.0.0",
+  "description": "Portal digital Primăria Galați — raportare probleme urbane",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
