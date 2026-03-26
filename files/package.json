@@ -1,12 +1,8 @@
 {
-  "name": "primaria-galati-digital",
-  "version": "3.0.0",
-  "description": "Portal digital Primăria Galați — sistem de sesizări cu management ierarhic",
+  "name": "primaria-galati",
+  "version": "3.1.0",
   "main": "server.js",
-  "scripts": {
-    "start": "node server.js",
-    "dev": "node --watch server.js"
-  },
+  "scripts": { "start": "node server.js" },
   "dependencies": {
     "express": "^4.21.0",
     "better-sqlite3": "^11.0.0",
