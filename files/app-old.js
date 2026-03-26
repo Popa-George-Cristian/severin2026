@@ -66,21 +66,10 @@ async function loadMyReports(){const reps=await fetch('/api/reports').then(r=>r.
 window.submitContact=async function(){const n=document.getElementById('cName').value.trim(),e=document.getElementById('cEmail').value.trim(),msg=document.getElementById('cMessage').value.trim(),m=document.getElementById('contactMsg');if(!n||!e||!msg){showMsg(m,'Completați câmpurile obligatorii','err');return;}const r=await fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:n,email:e,subject:document.getElementById('cSubject').value.trim(),message:msg})});if(r.ok){showMsg(m,'Mesaj trimis!','ok');toast('Trimis!','ok');['cName','cEmail','cSubject','cMessage'].forEach(id=>document.getElementById(id).value='');}else showMsg(m,'Eroare','err');};
 
 /* ═══ DETAIL MODAL ═══ */
-window.openDetail=async function(id){try{const r=await api('/api/reports/'+id).then(x=>x.json());const isP=currentUser&&['primar','admin'].includes(currentUser.role),isD=currentUser&&currentUser.role==='departament';
-  let h='<h2>'+esc(r.title)+'</h2><p><span class="badge b-'+r.status+'">'+(STAT[r.status]||r.status)+'</span> · '+(r.priority==='urgent'?'🔴 Urgent':'Normal')+' · Nr: '+(r.cerere_nr||'—')+'</p>';
-  if(r.stage)h+='<p style="font-size:.85rem;color:var(--dim)">📋 Stadiu: <strong>'+esc(r.stage)+'</strong></p>';
-  h+='<p style="color:var(--dim);font-size:.88rem">'+(CAT[r.category]||r.category)+' · '+fmtD(r.created_at)+(r.author_name?' · '+esc(r.author_name):'')+(r.address?' · 📍 '+esc(r.address):'')+'</p>';
-  if(r.photo_path)h+='<img src="'+r.photo_path+'" style="width:100%;max-height:300px;object-fit:cover;border-radius:8px;margin:1rem 0">';
-  h+='<p style="line-height:1.85;margin:1rem 0">'+esc(r.description)+'</p>';
-  if(r.latitude&&r.longitude)h+='<div id="dMap" class="detail-map"></div>';
-  if(r.dept_name)h+='<p style="font-size:.88rem"><strong>Departament:</strong> '+esc(r.dept_name)+'</p>';
-  if(r.rezolutie)h+='<div class="detail-sec"><h4>Rezoluția primarului</h4><p>'+esc(r.rezolutie)+'</p></div>';
-  if(r.department_notes)h+='<div class="detail-sec"><h4>Note departament</h4><p>'+esc(r.department_notes)+'</p></div>';
-  // History (from colleague's idea)
-  try{const hist=JSON.parse(r.history||'[]');if(hist.length){h+='<div class="detail-sec"><h4>📜 Istoric</h4>';hist.forEach(e=>{h+='<div style="font-size:.82rem;padding:.3rem 0;border-bottom:1px solid var(--cream);color:var(--dim)"><span style="color:var(--light)">'+fmtD(e.date)+'</span> — '+esc(e.text)+'</div>';});h+='</div>';}}catch(e){}
+window.openDetail=async function(id){try{const r=await api('/api/reports/'+id).then(x=>x.json());const isP=currentUser&&['primar','admin'].includes(currentUser.role),isD=currentUser&&currentUser.role==='departament';let h='<h2>'+esc(r.title)+'</h2><p><span class="badge b-'+r.status+'">'+(STAT[r.status]||r.status)+'</span> · '+(r.priority==='urgent'?'🔴 Urgent':'Normal')+' · Nr: '+(r.cerere_nr||'—')+'</p><p style="color:var(--dim);font-size:.88rem">'+(CAT[r.category]||r.category)+' · '+fmtD(r.created_at)+(r.author_name?' · '+esc(r.author_name):'')+(r.address?' · 📍 '+esc(r.address):'')+'</p>';if(r.photo_path)h+='<img src="'+r.photo_path+'" style="width:100%;max-height:300px;object-fit:cover;border-radius:8px;margin:1rem 0">';h+='<p style="line-height:1.85;margin:1rem 0">'+esc(r.description)+'</p>';if(r.latitude&&r.longitude)h+='<div id="dMap" class="detail-map"></div>';if(r.dept_name)h+='<p style="font-size:.88rem"><strong>Departament:</strong> '+esc(r.dept_name)+'</p>';if(r.rezolutie)h+='<div class="detail-sec"><h4>Rezoluția primarului</h4><p>'+esc(r.rezolutie)+'</p></div>';if(r.department_notes)h+='<div class="detail-sec"><h4>Note departament</h4><p>'+esc(r.department_notes)+'</p></div>';
   if(isP){if(!allDepts.length)allDepts=await fetch('/api/departments').then(x=>x.json());h+='<div class="detail-sec"><h4>Redirecționare</h4><div class="dept-grid">'+allDepts.map(d=>'<label class="dept-opt"><input type="radio" name="asDept" value="'+d.id+'"'+(r.department_id===d.id?' checked':'')+'>'+esc(d.name)+'</label>').join('')+'</div><div class="f" style="margin-top:.5rem"><label>Rezoluție</label><textarea id="dRez" rows="2">'+esc(r.rezolutie||'')+'</textarea></div><div style="display:flex;gap:.5rem;margin-top:.5rem"><button class="btn gold" onclick="assignReport('+r.id+')">Redirecționează →</button><button class="danger" onclick="delReport('+r.id+')">Șterge</button></div></div>';}
   if(isD){h+='<div class="detail-sec"><h4>Actualizare</h4><div class="f"><label>Status</label><select id="dStat"><option value="in_lucru"'+(r.status==='in_lucru'?' selected':'')+'>În lucru</option><option value="rezolvat"'+(r.status==='rezolvat'?' selected':'')+'>Rezolvat</option></select></div><div class="f"><label>Note</label><textarea id="dNotes" rows="2">'+esc(r.department_notes||'')+'</textarea></div><button class="btn gold" onclick="updateDept('+r.id+')">Salvează</button></div>';}
-  document.getElementById('modalBody').innerHTML=h;document.getElementById('modal').classList.add('open');if(r.latitude&&r.longitude)setTimeout(()=>{if(detailMap){detailMap.remove();detailMap=null;}detailMap=L.map('dMap').setView([r.latitude,r.longitude],16);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'©OSM'}).addTo(detailMap);L.marker([r.latitude,r.longitude]).addTo(detailMap);},300);}catch(e){toast('Eroare','err');console.error(e);}};
+  document.getElementById('modalBody').innerHTML=h;document.getElementById('modal').classList.add('open');if(r.latitude&&r.longitude)setTimeout(()=>{if(detailMap){detailMap.remove();detailMap=null;}detailMap=L.map('dMap').setView([r.latitude,r.longitude],16);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'©OSM'}).addTo(detailMap);L.marker([r.latitude,r.longitude]).addTo(detailMap);},300);}catch(e){toast('Eroare','err');}};
 window.closeDetail=function(){document.getElementById('modal').classList.remove('open');if(detailMap){detailMap.remove();detailMap=null;}};
 window.assignReport=async function(id){const d=document.querySelector('input[name="asDept"]:checked')?.value;if(!d){toast('Selectați departament','err');return;}await api('/api/reports/'+id+'/assign',{method:'PATCH',body:{department_id:parseInt(d),rezolutie:document.getElementById('dRez')?.value}});toast('Redirecționat!','ok');closeDetail();loadPrimar();};
 window.updateDept=async function(id){await api('/api/reports/'+id+'/dept',{method:'PATCH',body:{status:document.getElementById('dStat').value,department_notes:document.getElementById('dNotes').value}});toast('Actualizat!','ok');closeDetail();loadDept();};
@@ -92,7 +81,6 @@ window.loadPrimarReports=async function(){const st=document.getElementById('pfSt
 async function loadPrimarNews(){const n=await fetch('/api/news').then(r=>r.json());document.getElementById('pNewsList').innerHTML=n.map(x=>'<div class="li"><span>'+esc(x.title)+'</span><button class="danger" onclick="event.stopPropagation();delNews('+x.id+')">Șterge</button></div>').join('');}
 window.submitNews=async function(){const t=document.getElementById('nTitle').value.trim(),c=document.getElementById('nContent').value.trim();if(!t||!c){toast('Titlu+conținut','err');return;}await api('/api/news',{method:'POST',body:{title:t,content:c}});toast('Publicată!','ok');document.getElementById('nTitle').value='';document.getElementById('nContent').value='';loadPrimarNews();};
 window.delNews=async function(id){if(!confirm('Sigur?'))return;await api('/api/news/'+id,{method:'DELETE'});toast('Șters','info');loadPrimarNews();};
-window.exportCSV=function(){window.open('/api/reports/export','_blank');};
 window.showPanel=function(pid,btn,pageId){const pg=document.getElementById(pageId);pg.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));pg.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));document.getElementById(pid).classList.add('active');btn.classList.add('active');};
 
 /* ═══ DEPT ═══ */
@@ -109,61 +97,6 @@ window.delUser=async function(id){if(!confirm('Sigur?'))return;await api('/api/u
 
 /* ═══ AI CHAT (llama.cpp on port 8080) ═══ */
 let chatHist=[];
-window.toggleChat=function(){
-  const p=document.getElementById('chatPanel');
-  p.classList.toggle('open');
-  if(p.classList.contains('open')) document.getElementById('chatInput').focus();
-};
-
-window.sendChat=async function(){
-  const inp=document.getElementById('chatInput');
-  const m=inp.value.trim();
-  if(!m) return;
-  inp.value='';
-  inp.disabled=true;
-  addMsg(m,'user');
-  chatHist.push({role:'user',content:m});
-
-  // Animated typing indicator
-  const typing=document.createElement('div');
-  typing.className='cmsg bot';
-  typing.id='chatTyping';
-  typing.innerHTML='<div class="cbbl typing-bbl"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>';
-  document.getElementById('chatMsgs').appendChild(typing);
-  typing.scrollIntoView({behavior:'smooth'});
-
-  // Slow warning after 5 seconds
-  const slowTimer=setTimeout(()=>{
-    const warn=document.getElementById('chatTyping');
-    if(warn) warn.innerHTML='<div class="cbbl typing-bbl"><span class="dot"></span><span class="dot"></span><span class="dot"></span><div class="typing-note">Modelul AI procesează... poate dura până la 30s</div></div>';
-  },5000);
-
-  try {
-    const r=await fetch('/api/ai/chat', {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({message:m, history:chatHist.slice(-8)})
-    });
-    clearTimeout(slowTimer);
-    const d=await r.json();
-    document.getElementById('chatTyping')?.remove();
-    addMsg(d.reply,'bot');
-    chatHist.push({role:'assistant',content:d.reply});
-    if(d.source==='fallback') console.log('[AI] Used fallback (llama.cpp may be offline)');
-  } catch(e) {
-    clearTimeout(slowTimer);
-    document.getElementById('chatTyping')?.remove();
-    addMsg('Eroare de conexiune. Verificați că llama-server rulează.','bot');
-  }
-  inp.disabled=false;
-  inp.focus();
-};
-
-function addMsg(t,w){
-  const c=document.getElementById('chatMsgs');
-  const d=document.createElement('div');
-  d.className='cmsg '+w;
-  d.innerHTML='<div class="cbbl">'+esc(t)+'</div>';
-  c.appendChild(d);
-  c.scrollTop=c.scrollHeight;
-}
+window.toggleChat=function(){const p=document.getElementById('chatPanel');p.classList.toggle('open');if(p.classList.contains('open'))document.getElementById('chatInput').focus();};
+window.sendChat=async function(){const inp=document.getElementById('chatInput'),m=inp.value.trim();if(!m)return;inp.value='';addMsg(m,'user');chatHist.push({role:'user',content:m});try{const r=await fetch('/api/ai/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:m,history:chatHist.slice(-8)})});const d=await r.json();addMsg(d.reply,'bot');chatHist.push({role:'assistant',content:d.reply});}catch(e){addMsg('Eroare de conexiune.','bot');}};
+function addMsg(t,w){const c=document.getElementById('chatMsgs'),d=document.createElement('div');d.className='cmsg '+w;d.innerHTML='<div class="cbbl">'+esc(t)+'</div>';c.appendChild(d);c.scrollTop=c.scrollHeight;}

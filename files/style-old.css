@@ -211,14 +211,6 @@ textarea { resize: vertical; }
 .chat-send { width: 38px; height: 38px; border-radius: 8px; background: var(--gold); color: var(--navy); border: none; cursor: pointer; font-size: 1.1rem; font-weight: 700; }
 .chat-send:hover { background: var(--gold2); }
 
-/* Typing indicator */
-.typing-bbl { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; min-width: 55px; }
-.typing-bbl .dot { width: 7px; height: 7px; background: var(--light); border-radius: 50%; animation: bounce 1.4s infinite; }
-.typing-bbl .dot:nth-child(2) { animation-delay: .2s; }
-.typing-bbl .dot:nth-child(3) { animation-delay: .4s; }
-.typing-note { width: 100%; font-size: .72rem; color: var(--light); margin-top: 4px; }
-@keyframes bounce { 0%,60%,100% { transform: translateY(0); } 30% { transform: translateY(-4px); } }
-
 /* ── Footer ──────────── */
 .foot { background: var(--navy); color: rgba(255,255,255,.3); padding: 1.5rem 0; margin-top: 2rem; font-size: .82rem; }
 .foot-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .5rem; }
