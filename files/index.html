@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Primăria Municipiului Galați — Portal Digital</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <title>Primăria Municipiului Galați</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -12,278 +11,208 @@
 </head>
 <body>
 
-<!-- ████ ACCESSIBILITY VOICE OVERLAY ████ -->
-<div id="a11yOverlay">
-  <div class="a11y-center">
-    <div class="a11y-pulse"></div>
-    <h1>Primăria Municipiului Galați</h1>
-    <p>Dacă aveți probleme de vedere, apăsați <strong>orice tastă</strong>.</p>
-    <p class="a11y-dim">Altfel, faceți click oriunde pentru a continua.</p>
-  </div>
-</div>
-
-<!-- ████ NAVBAR ████ -->
 <header id="navbar">
-  <div class="nav-inner">
-    <a class="nav-logo" onclick="go('home')">
-      <span class="nav-logo-icon">⚜</span>
-      <span class="nav-logo-text">Primăria Galați</span>
-    </a>
+  <div class="nav-wrap">
+    <a class="logo" onclick="go('home')"><span class="logo-crest">⚜</span> Primăria Galați</a>
     <nav id="navMenu" class="nav-links">
-      <a onclick="go('home')" class="nav-a">Acasă</a>
-      <a onclick="go('news')" class="nav-a">Știri</a>
-      <a onclick="go('about')" class="nav-a">Despre</a>
-      <a onclick="go('contact')" class="nav-a">Contact</a>
-      <a onclick="go('report')" class="nav-a nav-a-accent" id="navReport" style="display:none">✦ Raportează</a>
-      <a onclick="go('primar')" class="nav-a nav-a-gold" id="navPrimar" style="display:none">Primar</a>
-      <a onclick="go('dept')" class="nav-a nav-a-blue" id="navDept" style="display:none">Departament</a>
-      <a onclick="go('admin')" class="nav-a nav-a-red" id="navAdmin" style="display:none">Admin</a>
-      <a onclick="onAuthClick()" class="nav-a nav-auth" id="navAuth"><span id="authLabel">Autentificare</span></a>
+      <a onclick="go('home')" class="nv">Acasă</a>
+      <a onclick="go('news')" class="nv">Știri</a>
+      <a onclick="go('about')" class="nv">Despre</a>
+      <a onclick="go('contact')" class="nv">Contact</a>
+      <a onclick="go('report')" class="nv nv-accent" id="navReport" style="display:none">✦ Raportează</a>
+      <a onclick="go('primar')" class="nv nv-gold" id="navPrimar" style="display:none">Primar</a>
+      <a onclick="go('dept')" class="nv nv-blue" id="navDept" style="display:none">Departament</a>
+      <a onclick="go('admin')" class="nv nv-red" id="navAdmin" style="display:none">Admin</a>
+      <a onclick="onAuthClick()" class="nv nv-auth" id="navAuth"><span id="authLabel">Autentificare</span></a>
     </nav>
-    <button class="nav-burger" onclick="document.getElementById('navMenu').classList.toggle('open')">☰</button>
+    <button class="burger" onclick="document.getElementById('navMenu').classList.toggle('open')">☰</button>
   </div>
 </header>
 
-<!-- ████ PAGES ████ -->
 <main>
 
-<!-- ═══ HOME ═══ -->
+<!-- HOME -->
 <section class="pg active" id="pg-home">
   <div class="hero">
-    <div class="hero-img" style="background-image:url('https://images.unsplash.com/photo-1592906209472-a36b1f3782ef?w=1600&q=80')"></div>
-    <div class="hero-gradient"></div>
-    <div class="hero-content">
-      <span class="hero-badge">Municipiul Galați · România · Malul Dunării</span>
-      <h1 class="hero-title">Galați <em>Digital</em></h1>
-      <p class="hero-sub">Portal digital pentru cetățenii municipiului Galați.<br>Raportați probleme, urmăriți sesizările, contribuiți la un oraș mai bun.</p>
+    <div class="hero-bg" style="background-image:url('https://images.unsplash.com/photo-1592906209472-a36b1f3782ef?w=1600&q=80')"></div>
+    <div class="hero-fade"></div>
+    <div class="hero-inner">
+      <p class="hero-badge">Municipiul Galați · România · Malul Dunării</p>
+      <h1 class="hero-h1">Galați <em>Digital</em></h1>
+      <p class="hero-sub">Portal digital pentru cetățenii municipiului Galați. Raportați probleme urbane, urmăriți sesizările, contribuiți la un oraș mai bun.</p>
       <div class="hero-btns">
-        <button class="btn-primary" onclick="currentUser?go('report'):go('login')">Raportează o problemă →</button>
-        <button class="btn-ghost" onclick="go('news')">Citește știrile</button>
+        <button class="btn gold" onclick="currentUser?go('report'):go('login')">Raportează o problemă →</button>
+        <button class="btn glass" onclick="go('news')">Citește știrile</button>
       </div>
     </div>
   </div>
+  <div class="strip"><div class="wrap strip-row">
+    <div class="strip-item"><span class="strip-n" id="sTotal">—</span><span class="strip-l">Sesizări</span></div>
+    <div class="strip-item"><span class="strip-n" id="sRes">—</span><span class="strip-l">Rezolvate</span></div>
+    <div class="strip-item"><span class="strip-n" id="sProg">—</span><span class="strip-l">În lucru</span></div>
+    <div class="strip-item"><span class="strip-n" id="sUrg">—</span><span class="strip-l">Urgente</span></div>
+  </div></div>
 
-  <!-- Stats bar -->
-  <div class="stats-bar">
-    <div class="stat"><span class="stat-n" id="sTotal">—</span><span class="stat-l">Sesizări</span></div>
-    <div class="stat"><span class="stat-n" id="sRes">—</span><span class="stat-l">Rezolvate</span></div>
-    <div class="stat"><span class="stat-n" id="sProg">—</span><span class="stat-l">În lucru</span></div>
-    <div class="stat"><span class="stat-n" id="sUrg">—</span><span class="stat-l">Urgente</span></div>
-  </div>
-
-  <!-- Institutions -->
-  <section class="section"><div class="wrap">
-    <h2 class="sec-title">Instituții Galați</h2>
-    <div class="inst-row">
-      <a href="https://www.primaria.galati.ro" target="_blank" class="inst">🏛️ Primăria Galați</a>
-      <a href="https://www.cjgalati.ro" target="_blank" class="inst">🏢 Consiliul Județean</a>
-      <a href="https://www.transurb-galati.ro" target="_blank" class="inst">🚌 Transurb</a>
-      <a href="https://www.apagalati.ro" target="_blank" class="inst">💧 Apă Canal</a>
+  <section class="sec"><div class="wrap">
+    <h2 class="sh">Instituții</h2>
+    <div class="row4">
+      <a href="https://www.primaria.galati.ro" target="_blank" class="icard">🏛️ Primăria Galați</a>
+      <a href="https://www.cjgalati.ro" target="_blank" class="icard">🏢 Consiliul Județean</a>
+      <a href="https://www.transurb-galati.ro" target="_blank" class="icard">🚌 Transurb</a>
+      <a href="https://www.apagalati.ro" target="_blank" class="icard">💧 Apă Canal</a>
     </div>
   </div></section>
 
-  <!-- News -->
-  <section class="section section-cream"><div class="wrap">
-    <h2 class="sec-title">Știri Recente</h2>
-    <div class="news-row" id="homeNews"></div>
+  <section class="sec sec-white"><div class="wrap">
+    <h2 class="sh">Știri Recente</h2>
+    <div class="news-grid" id="homeNews"></div>
   </div></section>
 
-  <!-- Map -->
-  <section class="section"><div class="wrap">
-    <h2 class="sec-title">Harta Sesizărilor din Galați</h2>
-    <div class="map-box"><div id="homeMap" style="height:400px;width:100%"></div></div>
+  <section class="sec"><div class="wrap">
+    <h2 class="sh">Harta Sesizărilor</h2>
+    <div class="map-box"><div id="homeMap" style="height:400px"></div></div>
   </div></section>
 </section>
 
-<!-- ═══ NEWS ═══ -->
+<!-- NEWS -->
 <section class="pg" id="pg-news">
-  <div class="pg-head"><h1>Știri & Anunțuri</h1><p>Noutăți din municipiul Galați</p></div>
-  <div class="wrap section"><div class="news-row" id="allNews"></div></div>
+  <div class="pg-top"><h1>Știri & Anunțuri</h1></div>
+  <div class="wrap sec"><div class="news-grid" id="allNews"></div></div>
 </section>
 
-<!-- ═══ ARTICLE ═══ -->
+<!-- ARTICLE -->
 <section class="pg" id="pg-article">
-  <div class="wrap section" style="padding-top:6rem">
-    <a onclick="go('news')" class="back-link">← Înapoi la știri</a>
-    <div class="card" id="articleBody" style="margin-top:1rem;padding:2rem"></div>
+  <div class="wrap sec" style="padding-top:6rem">
+    <a class="link-back" onclick="go('news')">← Înapoi la știri</a>
+    <div class="card big" id="articleBody"></div>
   </div>
 </section>
 
-<!-- ═══ ABOUT ═══ -->
+<!-- ABOUT -->
 <section class="pg" id="pg-about">
-  <div class="pg-head"><h1>Despre Galați</h1></div>
-  <div class="wrap section">
-    <div class="two-col">
-      <div class="card">
-        <h2>Municipiul Galați</h2>
-        <p>Galați este un municipiu situat în sud-estul României, pe malul stâng al Dunării. Cu aproximativ 250.000 de locuitori, este reședința județului Galați și cel mai mare oraș din regiunea Moldovei de Jos.</p>
-        <p>Cu o istorie de peste 600 de ani, Galați a fost un important port dunărean și centru comercial. Astăzi, orașul se reinventează prin proiecte de modernizare, digitalizare și implicarea cetățenilor.</p>
-        <div class="facts">
-          <span>📊 ~250.000 locuitori</span><span>📐 246 km²</span><span>🏔 25m altitudine</span>
-          <span>🌊 Dunărea</span><span>📮 800xxx</span><span>📍 Județul Galați</span>
-        </div>
-      </div>
-      <div class="card">
-        <h2>Despre Proiect</h2>
-        <p>Portal digital cu management ierarhic al sesizărilor: Cetățean → Primar → Departamente. Fiecare sesizare primește automat un număr unic de cerere.</p>
-        <h3 style="margin-top:1rem">Fluxul sesizării</h3>
-        <div class="flow">
-          <div class="flow-step"><span>1</span> Cetățeanul raportează pe hartă</div>
-          <div class="flow-step"><span>2</span> Primește nr. cerere automat</div>
-          <div class="flow-step"><span>3</span> Primarul redirecționează</div>
-          <div class="flow-step"><span>4</span> Departamentul rezolvă</div>
-        </div>
-        <p style="margin-top:1rem"><strong>Echipa:</strong> Cristi — Developer<br><strong>Tech:</strong> Node.js · Express · SQLite · Leaflet.js · llama.cpp AI</p>
-      </div>
+  <div class="pg-top"><h1>Despre Galați</h1></div>
+  <div class="wrap sec"><div class="cols">
+    <div class="card">
+      <h2>Municipiul Galați</h2>
+      <p>Situat pe malul stâng al Dunării, Galați este al optulea oraș ca mărime din România, cu ~250.000 de locuitori și o istorie de peste 600 de ani. Centru economic al Moldovei de Jos.</p>
+      <div class="tags"><span>📊 ~250.000 loc.</span><span>📐 246 km²</span><span>🌊 Dunărea</span><span>📮 800xxx</span></div>
     </div>
-  </div>
+    <div class="card">
+      <h2>Despre Proiect</h2>
+      <p>Portal digital cu management ierarhic: Cetățean → Primar → Departamente. Fiecare sesizare primește un număr unic de cerere.</p>
+      <p><strong>Echipa:</strong> Cristi (Developer)<br><strong>Tech:</strong> Node.js · Express · SQLite · Leaflet.js · llama.cpp</p>
+    </div>
+  </div></div>
 </section>
 
-<!-- ═══ CONTACT ═══ -->
+<!-- CONTACT -->
 <section class="pg" id="pg-contact">
-  <div class="pg-head"><h1>Contact</h1><p>Primăria Municipiului Galați</p></div>
-  <div class="wrap section"><div class="two-col">
+  <div class="pg-top"><h1>Contact</h1></div>
+  <div class="wrap sec"><div class="cols">
     <div class="card">
       <h3>Trimiteți un mesaj</h3>
       <div class="f"><label>Nume *</label><input id="cName" type="text"></div>
       <div class="f"><label>Email *</label><input id="cEmail" type="email"></div>
       <div class="f"><label>Subiect</label><input id="cSubject" type="text"></div>
       <div class="f"><label>Mesaj *</label><textarea id="cMessage" rows="4"></textarea></div>
-      <button class="btn-primary full" onclick="submitContact()">Trimite mesajul</button>
+      <button class="btn gold full" onclick="submitContact()">Trimite</button>
       <div id="contactMsg" class="msg"></div>
     </div>
     <div class="card">
       <h3>Informații</h3>
-      <div class="info-rows">
-        <div>📍 <strong>Adresă:</strong> Str. Domnească nr. 38, Galați 800008</div>
-        <div>📞 <strong>Telefon:</strong> 0236 307 700</div>
-        <div>✉️ <strong>Email:</strong> registratura@primaria.galati.ro</div>
-        <div>🕐 <strong>Program:</strong> Luni – Vineri, 08:00 – 16:00</div>
-      </div>
+      <p>📍 Str. Domnească nr. 38, Galați 800008</p>
+      <p>📞 0236 307 700</p>
+      <p>✉️ registratura@primaria.galati.ro</p>
+      <p>🕐 Luni – Vineri, 08:00 – 16:00</p>
     </div>
   </div></div>
 </section>
 
-<!-- ═══ LOGIN ═══ -->
+<!-- LOGIN -->
 <section class="pg" id="pg-login">
   <div class="login-split">
-    <div class="login-art">
-      <h1>Bine ați venit</h1>
-      <p>Autentificați-vă pentru a raporta probleme urbane sau gestiona sesizările din municipiul Galați.</p>
-    </div>
-    <div class="login-form-side">
-      <div class="login-box">
-        <div class="tab-bar">
-          <button class="tab-btn active" onclick="switchLoginTab('signin',this)">Conectare</button>
-          <button class="tab-btn" onclick="switchLoginTab('signup',this)">Cont nou</button>
-        </div>
-        <div id="tab-signin" class="tab-content active">
-          <div class="f"><label>Utilizator</label><input id="liUser" type="text" placeholder="ex: maria.popescu"></div>
-          <div class="f"><label>Parolă</label><input id="liPass" type="password" placeholder="••••••" onkeydown="if(event.key==='Enter')doLogin()"></div>
-          <button class="btn-primary full" onclick="doLogin()">Conectare</button>
-          <div id="loginMsg" class="msg"></div>
-        </div>
-        <div id="tab-signup" class="tab-content">
-          <div class="f"><label>Nume complet</label><input id="ruName" type="text"></div>
-          <div class="f"><label>Utilizator</label><input id="ruUser" type="text"></div>
-          <div class="f"><label>Email</label><input id="ruEmail" type="email"></div>
-          <div class="f"><label>Parolă</label><input id="ruPass" type="password" onkeydown="if(event.key==='Enter')doRegister()"></div>
-          <button class="btn-primary full" onclick="doRegister()">Creează cont</button>
-          <div id="regMsg" class="msg"></div>
-        </div>
+    <div class="login-left"><h1>Bine ați venit</h1><p>Autentificați-vă pentru a raporta probleme sau gestiona sesizările.</p></div>
+    <div class="login-right"><div class="login-box">
+      <div class="tab-bar"><button class="tab active" onclick="switchTab('signin',this)">Conectare</button><button class="tab" onclick="switchTab('signup',this)">Cont nou</button></div>
+      <div id="tab-signin" class="tab-body active">
+        <div class="f"><label>Utilizator</label><input id="liUser" type="text" placeholder="ex: maria.popescu"></div>
+        <div class="f"><label>Parolă</label><input id="liPass" type="password" placeholder="••••••" onkeydown="if(event.key==='Enter')doLogin()"></div>
+        <button class="btn gold full" onclick="doLogin()">Conectare</button>
+        <div id="loginMsg" class="msg"></div>
       </div>
-    </div>
+      <div id="tab-signup" class="tab-body">
+        <div class="f"><label>Nume complet</label><input id="ruName" type="text"></div>
+        <div class="f"><label>Utilizator</label><input id="ruUser" type="text"></div>
+        <div class="f"><label>Email</label><input id="ruEmail" type="email"></div>
+        <div class="f"><label>Parolă</label><input id="ruPass" type="password" onkeydown="if(event.key==='Enter')doRegister()"></div>
+        <button class="btn gold full" onclick="doRegister()">Creează cont</button>
+        <div id="regMsg" class="msg"></div>
+      </div>
+    </div></div>
   </div>
 </section>
 
-<!-- ═══ REPORT ═══ -->
+<!-- REPORT -->
 <section class="pg" id="pg-report">
-  <div class="pg-head"><h1>Raportează o problemă</h1><p>Marcați locația pe hartă, descrieți problema, trimiteți</p></div>
-  <div class="wrap section"><div class="two-col">
+  <div class="pg-top"><h1>Raportează o problemă</h1><p>Marcați locația pe hartă, descrieți problema</p></div>
+  <div class="wrap sec"><div class="cols">
     <div>
-      <div class="card" style="padding:0;overflow:hidden">
-        <div id="reportMap" style="height:420px;width:100%"></div>
-        <div class="map-hint">Click pe hartă pentru a marca locația problemei</div>
-      </div>
-      <div class="card" style="margin-top:1rem"><h3>Sesizările mele</h3><div class="scroll-box" id="myReports"></div></div>
+      <div class="card" style="padding:0;overflow:hidden"><div id="reportMap" style="height:420px"></div><div class="map-hint">Click pe hartă pentru a marca locația</div></div>
+      <div class="card" style="margin-top:1rem"><h3>Sesizările mele</h3><div class="scroll" id="myReports"></div></div>
     </div>
-    <div>
-      <div class="card">
-        <h3>Detalii sesizare</h3>
-        <div class="f-row">
-          <div class="f"><label>Tip</label><select id="rType"><option value="sesizare">Sesizare</option><option value="serviciu">Cerere serviciu</option></select></div>
-          <div class="f"><label>Prioritate</label><select id="rPri"><option value="normal">Normal</option><option value="urgent">🔴 Urgent</option></select></div>
-        </div>
-        <div class="f"><label>Titlu *</label><input id="rTitle" type="text" placeholder="Ex: Groapă pe Str. Brăilei"></div>
-        <div class="f"><label>Categorie *</label><select id="rCat"><option value="">— Selectați —</option><option value="drum">Drum / Carosabil</option><option value="iluminat">Iluminat Public</option><option value="salubritate">Salubritate</option><option value="spatii_verzi">Spații Verzi</option><option value="mobilier_urban">Mobilier Urban</option><option value="canalizare">Canalizare / Apă</option><option value="constructii">Construcții</option><option value="altele">Altele</option></select></div>
-        <div class="f"><label>Descriere *</label><textarea id="rDesc" rows="4" placeholder="Descrieți problema..."></textarea></div>
-        <div class="f"><label>Adresă</label><input id="rAddr" type="text" readonly placeholder="Se completează de pe hartă"></div>
-        <input type="hidden" id="rLat"><input type="hidden" id="rLng">
-        <div class="f"><label>Fotografie (opțional)</label><input id="rPhoto" type="file" accept="image/*"></div>
-        <button class="btn-primary full" onclick="submitReport()">Trimite sesizarea →</button>
-        <div id="reportMsg" class="msg"></div>
-      </div>
+    <div class="card">
+      <h3>Detalii sesizare</h3>
+      <div class="f-row"><div class="f"><label>Tip</label><select id="rType"><option value="sesizare">Sesizare</option><option value="serviciu">Cerere serviciu</option></select></div><div class="f"><label>Prioritate</label><select id="rPri"><option value="normal">Normal</option><option value="urgent">🔴 Urgent</option></select></div></div>
+      <div class="f"><label>Titlu *</label><input id="rTitle" type="text" placeholder="Ex: Groapă pe Str. Brăilei"></div>
+      <div class="f"><label>Categorie *</label><select id="rCat"><option value="">— Selectați —</option><option value="drum">Drum</option><option value="iluminat">Iluminat</option><option value="salubritate">Salubritate</option><option value="spatii_verzi">Spații Verzi</option><option value="mobilier_urban">Mobilier Urban</option><option value="canalizare">Canalizare</option><option value="altele">Altele</option></select></div>
+      <div class="f"><label>Descriere *</label><textarea id="rDesc" rows="4" placeholder="Descrieți problema..."></textarea></div>
+      <div class="f"><label>Adresă</label><input id="rAddr" type="text" readonly placeholder="Se completează de pe hartă"></div>
+      <input type="hidden" id="rLat"><input type="hidden" id="rLng">
+      <div class="f"><label>Fotografie</label><input id="rPhoto" type="file" accept="image/*"></div>
+      <button class="btn gold full" onclick="submitReport()">Trimite sesizarea →</button>
+      <div id="reportMsg" class="msg"></div>
     </div>
   </div></div>
 </section>
 
-<!-- ═══ PRIMAR ═══ -->
+<!-- PRIMAR -->
 <section class="pg" id="pg-primar">
-  <div class="pg-head pg-head-dark"><h1>Biroul Primarului</h1><p>Vizualizare și redirecționare sesizări</p></div>
-  <div class="wrap section">
-    <div class="stat-row">
-      <div class="stat-card"><span class="stat-card-n" id="psTotal">0</span>Total</div>
-      <div class="stat-card"><span class="stat-card-n" id="psUnassigned">0</span>Neasignate</div>
-      <div class="stat-card"><span class="stat-card-n" id="psUrg">0</span>Urgente</div>
-    </div>
-    <div class="tab-bar" style="margin-bottom:1rem">
-      <button class="tab-btn active" onclick="showPanel('pReports',this,'pg-primar')">Sesizări</button>
-      <button class="tab-btn" onclick="showPanel('pNews',this,'pg-primar')">Știri</button>
-    </div>
+  <div class="pg-top dark"><h1>Biroul Primarului</h1></div>
+  <div class="wrap sec">
+    <div class="stat-row"><div class="scard"><span class="scard-n" id="psTotal">0</span>Total</div><div class="scard"><span class="scard-n" id="psUnassigned">0</span>Neasignate</div><div class="scard"><span class="scard-n" id="psUrg">0</span>Urgente</div></div>
+    <div class="tab-bar"><button class="tab active" onclick="showPanel('pReports',this,'pg-primar')">Sesizări</button><button class="tab" onclick="showPanel('pNews',this,'pg-primar')">Știri</button></div>
     <div id="pReports" class="panel active">
-      <div style="margin-bottom:.75rem"><select id="pfStatus" onchange="loadPrimarReports()"><option value="">Toate statusurile</option><option value="nou">Noi</option><option value="redirectionat">Redirecționate</option><option value="in_lucru">În lucru</option><option value="rezolvat">Rezolvate</option></select></div>
-      <div class="tbl-wrap"><table class="tbl"><thead><tr><th>Nr.</th><th>Titlu</th><th>Categorie</th><th>Status</th><th>Departament</th><th>Data</th></tr></thead><tbody id="pReportsBody"></tbody></table></div>
+      <div style="margin-bottom:.75rem"><select id="pfStatus" onchange="loadPrimarReports()"><option value="">Toate</option><option value="nou">Noi</option><option value="redirectionat">Redirecționate</option><option value="in_lucru">În lucru</option><option value="rezolvat">Rezolvate</option></select></div>
+      <div class="tbl-box"><table class="tbl"><thead><tr><th>Nr.</th><th>Titlu</th><th>Categorie</th><th>Status</th><th>Dept.</th><th>Data</th></tr></thead><tbody id="pReportsBody"></tbody></table></div>
     </div>
     <div id="pNews" class="panel">
-      <div class="card" style="margin-bottom:1rem"><h3>Publică știre</h3>
-        <div class="f"><label>Titlu *</label><input id="nTitle" type="text"></div>
-        <div class="f"><label>Conținut *</label><textarea id="nContent" rows="4"></textarea></div>
-        <button class="btn-primary" onclick="submitNews()">Publică</button>
-      </div>
+      <div class="card" style="margin-bottom:1rem"><h3>Publică știre</h3><div class="f"><label>Titlu *</label><input id="nTitle" type="text"></div><div class="f"><label>Conținut *</label><textarea id="nContent" rows="4"></textarea></div><button class="btn gold" onclick="submitNews()">Publică</button></div>
       <div id="pNewsList"></div>
     </div>
   </div>
 </section>
 
-<!-- ═══ DEPT ═══ -->
+<!-- DEPT -->
 <section class="pg" id="pg-dept">
-  <div class="pg-head"><h1 id="deptTitle">Departament</h1><p>Sesizări asignate departamentului dvs.</p></div>
-  <div class="wrap section">
-    <div class="tbl-wrap"><table class="tbl"><thead><tr><th>Nr.</th><th>Titlu</th><th>Status</th><th>Adresă</th><th>Data</th></tr></thead><tbody id="dReportsBody"></tbody></table></div>
-  </div>
+  <div class="pg-top"><h1 id="deptTitle">Departament</h1></div>
+  <div class="wrap sec"><div class="tbl-box"><table class="tbl"><thead><tr><th>Nr.</th><th>Titlu</th><th>Status</th><th>Adresă</th><th>Data</th></tr></thead><tbody id="dReportsBody"></tbody></table></div></div>
 </section>
 
-<!-- ═══ ADMIN ═══ -->
+<!-- ADMIN -->
 <section class="pg" id="pg-admin">
-  <div class="pg-head pg-head-dark"><h1>Administrare Sistem</h1></div>
-  <div class="wrap section">
-    <div class="tab-bar" style="margin-bottom:1rem">
-      <button class="tab-btn active" onclick="showPanel('aDepts',this,'pg-admin')">Departamente</button>
-      <button class="tab-btn" onclick="showPanel('aUsers',this,'pg-admin')">Utilizatori</button>
-    </div>
+  <div class="pg-top dark"><h1>Administrare</h1></div>
+  <div class="wrap sec">
+    <div class="tab-bar"><button class="tab active" onclick="showPanel('aDepts',this,'pg-admin')">Departamente</button><button class="tab" onclick="showPanel('aUsers',this,'pg-admin')">Utilizatori</button></div>
     <div id="aDepts" class="panel active">
-      <div class="card" style="margin-bottom:1rem"><h3>Departament nou</h3>
-        <div class="f"><label>Nume</label><input id="adName" type="text" placeholder="Direcția..."></div>
-        <button class="btn-primary" onclick="submitDept()">Adaugă</button>
-      </div>
+      <div class="card" style="margin-bottom:1rem"><h3>Departament nou</h3><div class="f"><label>Nume</label><input id="adName" type="text"></div><button class="btn gold" onclick="submitDept()">Adaugă</button></div>
       <div id="aDeptsList"></div>
     </div>
     <div id="aUsers" class="panel">
       <div class="card" style="margin-bottom:1rem"><h3>Utilizator nou</h3>
         <div class="f-row"><div class="f"><label>Username</label><input id="auUser" type="text"></div><div class="f"><label>Email</label><input id="auEmail" type="email"></div></div>
         <div class="f-row"><div class="f"><label>Parolă</label><input id="auPass" type="password"></div><div class="f"><label>Rol</label><select id="auRole"><option value="cetatean">Cetățean</option><option value="departament">Departament</option><option value="primar">Primar</option></select></div></div>
-        <div class="f"><label>Departament</label><select id="auDept"><option value="">— Niciunul —</option></select></div>
-        <button class="btn-primary" onclick="submitUser()">Adaugă</button>
+        <div class="f"><label>Departament</label><select id="auDept"><option value="">—</option></select></div>
+        <button class="btn gold" onclick="submitUser()">Adaugă</button>
       </div>
       <div id="aUsersList"></div>
     </div>
@@ -292,50 +221,22 @@
 
 </main>
 
-<!-- ████ DETAIL MODAL ████ -->
-<div id="modal" class="modal-overlay" onclick="if(event.target===this)closeDetail()">
-  <div class="modal-card">
-    <button class="modal-close" onclick="closeDetail()">✕</button>
-    <div id="modalBody"></div>
-  </div>
-</div>
+<!-- MODAL -->
+<div id="modal" class="overlay" onclick="if(event.target===this)closeDetail()"><div class="modal"><button class="modal-x" onclick="closeDetail()">✕</button><div id="modalBody"></div></div></div>
 
-<!-- ████ AI CHAT ████ -->
-<div id="chatWidget" class="chat-widget">
-  <button class="chat-bubble" onclick="toggleChat()">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-  </button>
+<!-- AI CHAT -->
+<div class="chat-w">
+  <button class="chat-fab" onclick="toggleChat()">💬</button>
   <div id="chatPanel" class="chat-panel">
-    <div class="chat-head">
-      <strong>🤖 Asistent Galați</strong>
-      <button onclick="toggleChat()" class="chat-close-btn">✕</button>
-    </div>
-    <div id="chatMsgs" class="chat-messages">
-      <div class="chat-msg bot"><div class="chat-text">Bună ziua! Sunt Asistentul Digital al Primăriei Galați. Cu ce vă pot ajuta? 😊</div></div>
-    </div>
-    <div class="chat-input-row">
-      <input id="chatInput" type="text" placeholder="Scrieți un mesaj..." onkeydown="if(event.key==='Enter')sendChat()">
-      <button onclick="sendChat()" class="chat-send">→</button>
-    </div>
+    <div class="chat-hd"><strong>🤖 Asistent Galați</strong><button onclick="toggleChat()" class="chat-x">✕</button></div>
+    <div id="chatMsgs" class="chat-body"><div class="cmsg bot"><div class="cbbl">Bună ziua! Sunt Asistentul Primăriei Galați. Cu ce vă pot ajuta? 😊</div></div></div>
+    <div class="chat-foot"><input id="chatInput" type="text" placeholder="Scrieți un mesaj..." onkeydown="if(event.key==='Enter')sendChat()"><button onclick="sendChat()" class="chat-send">→</button></div>
   </div>
 </div>
 
-<!-- ████ A11Y TOGGLE ████ -->
-<button id="a11yBtn" class="a11y-btn" onclick="toggleA11y()">♿</button>
-
-<!-- ████ A11Y STATUS BAR ████ -->
-<div id="a11yBar" class="a11y-bar"><span id="a11yBarText"></span></div>
-
-<!-- ████ TOASTS ████ -->
 <div id="toasts" class="toasts"></div>
 
-<!-- ████ FOOTER ████ -->
-<footer class="footer">
-  <div class="wrap footer-inner">
-    <span>⚜ Primăria Municipiului Galați — Portal Digital © 2026</span>
-    <span><a onclick="go('about')">Despre</a> · <a onclick="go('contact')">Contact</a></span>
-  </div>
-</footer>
+<footer class="foot"><div class="wrap foot-row"><span>⚜ Primăria Municipiului Galați © 2026</span><span><a onclick="go('about')">Despre</a> · <a onclick="go('contact')">Contact</a></span></div></footer>
 
 <script src="/js/app.js"></script>
 </body>
