@@ -14,19 +14,18 @@
 <body>
 
 <!-- ═══ A11Y OVERLAY ═══ -->
-<div class="a11y-overlay" id="a11yOverlay" role="dialog" aria-label="Accesibilitate">
+<div class="a11y-overlay" id="a11yOverlay" role="dialog" aria-label="Accesibilitate" aria-modal="true">
   <div class="a11y-box">
     <div class="a11y-icon-wrap"><i data-lucide="accessibility" style="width:48px;height:48px"></i></div>
-    <h1>Bine ați venit!</h1>
-    <p>Primăria Digitală Galați — Portal accesibil pentru toți cetățenii</p>
-    <div class="a11y-opts">
-      <div class="a11y-opt a11y-opt-acc" id="optA11y" tabindex="0"><div class="a11y-key">Space</div><div><strong>Mod Accesibil</strong><span>Navigare cu tastatura + ghidare vocală</span></div></div>
-      <div class="a11y-opt a11y-opt-std" id="optStd" tabindex="0"><div class="a11y-key">X</div><div><strong>Navigare Standard</strong><span>Interfața normală cu mouse</span></div></div>
+    <h1>Primăria Digitală Galați</h1>
+    <p class="a11y-main-msg" id="a11yMsg">Dacă aveți o dizabilitate vizuală, apăsați tasta <strong>Space</strong>.<br>Pentru navigare normală, apăsați tasta <strong>X</strong>.</p>
+    <div class="a11y-keys-display">
+      <div class="a11y-key-big">Space</div>
+      <span class="a11y-or">sau</span>
+      <div class="a11y-key-big">X</div>
     </div>
-    <p class="a11y-hint">Schimbați oricând din butonul ♿ din colțul ecranului</p>
   </div>
 </div>
-<a href="#app" class="skip-link">Salt la conținut</a>
 
 <!-- ═══ NAVBAR ═══ -->
 <nav class="nav" id="navbar">
@@ -330,6 +329,9 @@
     <div class="chat-inp"><input type="text" id="chatInput" placeholder="Scrieți un mesaj..." aria-label="Mesaj"><button class="chat-snd" id="chatSend"><i data-lucide="send" style="width:18px;height:18px"></i></button></div>
   </div>
 </div>
+
+<!-- A11Y Navigation Bar -->
+<div class="a11y-bar" id="a11yBar"><span class="a11y-bar-text" id="a11yBarText"></span><span class="a11y-bar-hint">Tab=Următorul · Enter=Selectează · Escape=Înapoi</span></div>
 
 <div id="toasts" class="toasts"></div>
 <script src="/js/app.js"></script>

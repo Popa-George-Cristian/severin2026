@@ -397,7 +397,8 @@ app.post('/api/ai/chat', async (req, res) => {
 
   try {
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 20000);
+    const timeout = setTimeout(() => controller.abort(), 60000);
+    console.log(`[AI] Request to ${LLAMA_URL}/v1/chat/completions: "${message.substring(0, 50)}..."`);
     const llamaRes = await fetch(`${LLAMA_URL}/v1/chat/completions`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -410,10 +411,14 @@ app.post('/api/ai/chat', async (req, res) => {
     clearTimeout(timeout);
     if (llamaRes.ok) {
       const data = await llamaRes.json();
-      return res.json({ reply: data.choices?.[0]?.message?.content || 'Fără răspuns.', source: 'llama' });
+      const reply = data.choices?.[0]?.message?.content || 'Fără răspuns.';
+      console.log(`[AI] Response (llama): "${reply.substring(0, 60)}..."`);
+      return res.json({ reply, source: 'llama' });
     }
-    throw new Error('llama.cpp unavailable');
+    console.log(`[AI] llama-server returned ${llamaRes.status}`);
+    throw new Error('llama.cpp error ' + llamaRes.status);
   } catch (e) {
+    console.log(`[AI] Fallback: ${e.message}`);
     res.json({ reply: smartFallback(message.toLowerCase()), source: 'fallback' });
   }
 });
@@ -456,5 +461,7 @@ app.listen(PORT, '0.0.0.0', () => {
   console.log(`  👤 Cetățean:    maria.popescu / maria123`);
   console.log(`  ─────────────────────────────────`);
   console.log(`  🤖 AI: llama.cpp @ ${LLAMA_URL}`);
-  console.log(`     Fallback inteligent activ dacă llama.cpp nu rulează\n`);
+  console.log(`     Funcționează FĂRĂ llama.cpp (fallback inteligent)`);
+  console.log(`     Opțional: cmake -B build && cmake --build build (CPU, fără CUDA)`);
+  console.log(`     Apoi: ./build/bin/llama-server -m model.gguf --port 8080\n`);
 });

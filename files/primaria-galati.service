@@ -1,0 +1,17 @@
+[Unit]
+Description=Primaria Galati Digital Portal
+After=network.target llama-server.service
+Wants=llama-server.service
+
+[Service]
+Type=simple
+User=cristi
+WorkingDirectory=/home/cristi/Documente/site
+ExecStart=/usr/bin/node server.js
+Restart=on-failure
+RestartSec=5
+Environment=PORT=3000
+Environment=LLAMA_URL=http://localhost:8080
+
+[Install]
+WantedBy=multi-user.target
